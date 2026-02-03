@@ -15,8 +15,7 @@ pip install requests beautifulsoup4 lxml
 
 ### Run
 
-```bash
-export SCRAPERAPI_KEY="YOUR_KEY"
+
 python scraper.py \
   --query "China chemical suppliers list" \
   --country "China" \
@@ -26,8 +25,7 @@ python scraper.py \
   --output suppliers.json
 ```
 
-> **Security note:** keep your ScraperAPI key in environment variables or a secrets manager.
-> Avoid committing real API keys to source control.
+
 
 ### Output
 

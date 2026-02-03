@@ -4,6 +4,8 @@ import os
 import re
 import time
 from dataclasses import asdict, dataclass, field
+from pathlib import Path
+from typing import List, Optional
 from typing import Iterable, List, Optional
 from urllib.parse import quote_plus, urlparse
 
