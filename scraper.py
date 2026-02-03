@@ -6,6 +6,7 @@ import time
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import List, Optional
+from typing import Iterable, List, Optional
 from urllib.parse import quote_plus, urlparse
 
 import requests
@@ -74,19 +75,6 @@ def _get_html(session: requests.Session, api_key: str, url: str, country_code: s
     response = session.get(_scraperapi_url(api_key, url, country_code), timeout=30)
     response.raise_for_status()
     return response.text
-
-
-def load_env(path: Path) -> None:
-    if not path.exists():
-        return
-    for line in path.read_text(encoding="utf-8").splitlines():
-        stripped = line.strip()
-        if not stripped or stripped.startswith("#") or "=" not in stripped:
-            continue
-        key, value = stripped.split("=", 1)
-        key = key.strip()
-        value = value.strip().strip('"').strip("'")
-        os.environ.setdefault(key, value)
 
 
 def google_search(
@@ -229,7 +217,6 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Scrape supplier data using ScraperAPI + Google search"
     )
-    parser.add_argument("--env-file", default=".env", help="Path to .env file")
     parser.add_argument("--api-key", default=os.getenv("SCRAPERAPI_KEY"))
     parser.add_argument(
         "--query",
@@ -247,9 +234,6 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
-    load_env(Path(args.env_file))
-    if not args.api_key:
-        args.api_key = os.getenv("SCRAPERAPI_KEY")
     if not args.api_key:
         raise SystemExit("Missing ScraperAPI key. Set SCRAPERAPI_KEY or --api-key.")
     with requests.Session() as session:

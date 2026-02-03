@@ -15,15 +15,7 @@ pip install requests beautifulsoup4 lxml
 
 ### Run
 
-Create a `.env` file (recommended):
 
-```bash
-SCRAPERAPI_KEY="YOUR_KEY"
-```
-
-Run the scraper:
-
-```bash
 python scraper.py \
   --query "China chemical suppliers list" \
   --country "China" \
@@ -33,14 +25,7 @@ python scraper.py \
   --output suppliers.json
 ```
 
-You can also pass the key directly:
 
-```bash
-python scraper.py --api-key "YOUR_KEY" --query "China chemical suppliers list"
-```
-
-> **Security note:** keep your ScraperAPI key in a `.env` file or secrets manager.
-> Avoid committing real API keys to source control.
 
 ### Output
 
